@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Go Performance Monitoring Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .metric { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Performance Metrics Dashboard</h1>
+    <div id="metrics">
+        <!-- Metrics will be loaded here -->
+    </div>
+
+    <script>
+        async function fetchMetrics() {
+            const response = await fetch('/metrics');
+            const text = await response.text();
+            document.getElementById('metrics').innerText = text;
+        }
+
+        setInterval(fetchMetrics, 5000); // Fetch metrics every 5 seconds
+        fetchMetrics(); // Initial fetch
+    </script>
+</body>
+</html>

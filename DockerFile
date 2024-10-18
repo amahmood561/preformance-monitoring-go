@@ -1,0 +1,30 @@
+# Dockerfile
+FROM golang:1.20-alpine
+
+# Set environment variables
+ENV GO111MODULE=on
+
+# Create app directory
+WORKDIR /app
+
+# Copy go.mod and go.sum
+COPY go.mod go.sum ./
+
+# Download dependencies
+RUN go mod download
+
+# Copy the source code
+COPY . .
+
+# Build the application
+RUN go build -o monitor ./cmd/monitor
+
+# Expose ports
+EXPOSE 2112 8080
+
+# Run the application
+CMD ["./monitor"]
+
+
+#docker build -t go-performance-monitor .
+#docker run -p 2112:2112 -p 8080:8080 go-performance-monitor
